@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row mt-md-4 mb-md-4">
+    <blockquote class="blockquote">
+      <p class="mb-0">Listado de libros</p>
+      <footer class="blockquote-footer">Listado de libros con la <cite title="Source Title">posición</cite> en las estanterías.</footer>
+    </blockquote>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Título</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Ancho</th>
+        <th scope="col">Posición</th>
+        <th scope="col" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="books.length > 0">
+      <tr *ngFor="let book of books">
+        <th scope="row">{{ book.id }}</th>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.width }} cm.</td>
+        <td>{{ getPosition(book.position) }}</td>
+        <td class="text-center"><a [routerLink]="['/books', book.id]" class="btn btn-sm"><i class="fa fa-arrow-circle-right"></i></a></td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="books.length === 0">
+      <tr>
+        <th scope="row" colspan="6" class="text-center">Sin libros creados</th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" class="text-right">
+          <a [routerLink]="['/books', 'new']" class="btn btn-sm btn-info"
+             [class.disabled]="shelvings.length === 0">Nuevo <i class="fa fa-plus-circle"></i></a>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row mt-md-4 mb-md-4">
+    <blockquote class="blockquote">
+      <p class="mb-0">Listado de estanterías</p>
+      <footer class="blockquote-footer">Listado de estanterías del usuario</footer>
+    </blockquote>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Nº de estantes</th>
+      <th scope="col">Ancho</th>
+      <th scope="col" class="text-center">Acciones</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="shelvings.length > 0">
+      <tr *ngFor="let shelving of shelvings">
+        <th scope="row">{{ shelving.id }}</th>
+        <td>{{ shelving.name }}</td>
+        <td>{{ shelving.shelfs.length }}</td>
+        <td>{{ shelving.width }}</td>
+        <td class="text-center"><a [routerLink]="['/shelvings', shelving.id]" class="btn btn-sm"><i class="fa fa-arrow-circle-right"></i></a></td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="shelvings.length === 0">
+      <tr>
+        <th scope="row" colspan="5" class="text-center">Sin datos de estanterías</th>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="text-right">
+          <a [routerLink]="['/shelvings', 'new']" class="btn btn-sm btn-info">Nueva <i class="fa fa-plus-circle"></i></a>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

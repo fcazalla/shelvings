@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div [ngClass]="{'col-lg-8': books && books.length > 0, 'col-lg-12': !books || books.length === 0}">
+      <div class="row mt-md-4 mb-md-4">
+        <blockquote class="blockquote">
+          <p class="mb-0">{{ actionToDo }}</p>
+          <footer class="blockquote-footer">Detalles de <cite title="Estantería">estantería</cite>.</footer>
+        </blockquote>
+      </div>
+      <form [formGroup]="shelvingForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <label class="required" for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" placeholder="Introduzca el nombre aquí"
+                 formControlName="name" #name [ngClass]="formValidationService.displayFieldCss('name', shelvingForm)">
+          <app-field-error [displayError]="formValidationService.isFieldValid('name', shelvingForm)" errorMessage="Por favor introduzca el nombre de la estantería" class="invalid-feedback"></app-field-error>
+        </div>
+        <div class="form-group">
+          <label class="required" for="shelfs">Nº de estanterías</label>
+          <input type="number" class="form-control" id="shelfs" placeholder="Introduzca el número de estanterías"
+                 formControlName="shelfs" #shelfs [readOnly]="fieldsAsReadOnly" [ngClass]="formValidationService.displayFieldCss('shelfs', shelvingForm)"
+                 pattern="[0-9]*">
+          <app-field-error [displayError]="formValidationService.isFieldValid('shelfs', shelvingForm)" errorMessage="Por favor introduzca un número de estantes" class="invalid-feedback"></app-field-error>
+        </div>
+        <div class="form-group">
+          <label class="required" for="width">Ancho</label>
+          <input type="text" class="form-control" id="width" placeholder="Introduzca el ancho de la estantería (cm)"
+                 formControlName="width" #width [readOnly]="fieldsAsReadOnly" [ngClass]="formValidationService.displayFieldCss('width', shelvingForm)"
+                 pattern="[0-9]*">
+          <app-field-error [displayError]="formValidationService.isFieldValid('width', shelvingForm)" errorMessage="Por favor introduzca el ancho de la estantería" class="invalid-feedback"></app-field-error>
+        </div>
+
+        <div class="pull-right">
+          <a [routerLink]="['/shelvings']" class="btn btn-sm btn-light mr-sm-3"><i class="fa fa-angle-double-left"></i> Volver al listado</a>
+          <button type="submit" class="btn btn-sm btn-info">Guardar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg-4" *ngIf="books && books.length > 0">
+      <div class="row mt-md-4 mb-md-4">
+        <blockquote class="blockquote">
+          <p class="mb-0">Listado de libros</p>
+          <footer class="blockquote-footer">Libros asociados a la estantería.</footer>
+        </blockquote>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let book of books">
+          {{ book.title }} - {{ book.width }} cm (Estante {{ book.position.shelf.id }})
+          <a [routerLink]="['/books', book.id]"><i class="fa fa-eye"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
